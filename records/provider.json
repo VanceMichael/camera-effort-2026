@@ -9,13 +9,13 @@
             {
               "id": "a62",
               "generation": "old",
-              "cell": "N",
+              "cell": "east",
               "path": "/images/a62"
             },
             {
               "id": "c62",
               "generation": "new",
-              "cell": "S",
+              "cell": "east",
               "path": "/images/c62"
             }
           ]
@@ -33,11 +33,11 @@
         "body": [
           {
             "id": "K",
-            "from": 65,
-            "until": 115,
+            "from": 62,
+            "until": 65,
             "cells": [
-              "N",
-              "S"
+              "east",
+              "west"
             ],
             "occupied": "J1"
           }
@@ -53,7 +53,7 @@
             {
               "id": "c62",
               "generation": "new",
-              "cell": "S",
+              "cell": "east",
               "path": "/images/c62"
             }
           ]
@@ -90,7 +90,8 @@
           "job": "J1",
           "receipt": "A12"
         },
-        "status": 202
+        "status": 202,
+        "next": "withdrawing"
       },
       {
         "path": "/crossings/withdraw",
@@ -103,6 +104,21 @@
           "job": "J2"
         },
         "status": 409
+      },
+      {
+        "path": "/crossings/slots",
+        "body": [
+          {
+            "id": "K",
+            "from": 62,
+            "until": 65,
+            "cells": [
+              "east",
+              "west"
+            ],
+            "occupied": "J1"
+          }
+        ]
       }
     ],
     "released": [
@@ -111,11 +127,11 @@
         "body": [
           {
             "id": "K",
-            "from": 65,
-            "until": 115,
+            "from": 62,
+            "until": 65,
             "cells": [
-              "N",
-              "S"
+              "east",
+              "west"
             ],
             "occupied": null
           }
@@ -135,6 +151,83 @@
             "state": "departed"
           }
         ]
+      },
+      {
+        "path": "/crossings/hold",
+        "body": {
+          "job": "J3",
+          "state": "reserved",
+          "slot": "K"
+        },
+        "method": "POST",
+        "payload": {
+          "slot": "K",
+          "cell": "west"
+        },
+        "status": 201
+      }
+    ],
+    "withdrawing": [
+      {
+        "path": "/images/index",
+        "body": {
+          "remaining": 2,
+          "items": [
+            {
+              "id": "c62",
+              "generation": "new",
+              "cell": "east",
+              "path": "/images/c62"
+            }
+          ]
+        }
+      },
+      {
+        "path": "/images/c62",
+        "body": null,
+        "file": "c62.png"
+      },
+      {
+        "path": "/crossings/receipts",
+        "body": [
+          {
+            "job": "J1",
+            "receipt": "A12",
+            "state": "reserved"
+          },
+          {
+            "job": "J2",
+            "receipt": "B11",
+            "state": "departed"
+          }
+        ]
+      },
+      {
+        "path": "/crossings/slots",
+        "body": [
+          {
+            "id": "K",
+            "from": 62,
+            "until": 65,
+            "cells": [
+              "east",
+              "west"
+            ],
+            "occupied": "J1"
+          }
+        ]
+      },
+      {
+        "path": "/crossings/withdraw",
+        "body": {
+          "receipt": "B11",
+          "state": "departed"
+        },
+        "method": "POST",
+        "payload": {
+          "job": "J2"
+        },
+        "status": 409
       }
     ]
   },
