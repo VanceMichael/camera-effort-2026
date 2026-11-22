@@ -1,0 +1,142 @@
+{
+  "stages": {
+    "fog": [
+      {
+        "path": "/images/index",
+        "body": {
+          "remaining": 1,
+          "items": [
+            {
+              "id": "a62",
+              "generation": "old",
+              "cell": "N",
+              "path": "/images/a62"
+            },
+            {
+              "id": "c62",
+              "generation": "new",
+              "cell": "S",
+              "path": "/images/c62"
+            }
+          ]
+        }
+      },
+      {
+        "path": "/images/a62",
+        "body": {
+          "error": "已失去原件"
+        },
+        "status": 410
+      },
+      {
+        "path": "/crossings/slots",
+        "body": [
+          {
+            "id": "K",
+            "from": 65,
+            "until": 115,
+            "cells": [
+              "N",
+              "S"
+            ],
+            "occupied": "J1"
+          }
+        ]
+      }
+    ],
+    "clear": [
+      {
+        "path": "/images/index",
+        "body": {
+          "remaining": 2,
+          "items": [
+            {
+              "id": "c62",
+              "generation": "new",
+              "cell": "S",
+              "path": "/images/c62"
+            }
+          ]
+        }
+      },
+      {
+        "path": "/images/c62",
+        "body": null,
+        "file": "c62.png"
+      },
+      {
+        "path": "/crossings/receipts",
+        "body": [
+          {
+            "job": "J1",
+            "receipt": "A12",
+            "state": "reserved"
+          },
+          {
+            "job": "J2",
+            "receipt": "B11",
+            "state": "departed"
+          }
+        ]
+      },
+      {
+        "path": "/crossings/withdraw",
+        "body": {
+          "receipt": "A13",
+          "state": "received"
+        },
+        "method": "POST",
+        "payload": {
+          "job": "J1",
+          "receipt": "A12"
+        },
+        "status": 202
+      },
+      {
+        "path": "/crossings/withdraw",
+        "body": {
+          "receipt": "B11",
+          "state": "departed"
+        },
+        "method": "POST",
+        "payload": {
+          "job": "J2"
+        },
+        "status": 409
+      }
+    ],
+    "released": [
+      {
+        "path": "/crossings/slots",
+        "body": [
+          {
+            "id": "K",
+            "from": 65,
+            "until": 115,
+            "cells": [
+              "N",
+              "S"
+            ],
+            "occupied": null
+          }
+        ]
+      },
+      {
+        "path": "/crossings/receipts",
+        "body": [
+          {
+            "job": "J1",
+            "receipt": "A13",
+            "state": "released"
+          },
+          {
+            "job": "J2",
+            "receipt": "B11",
+            "state": "departed"
+          }
+        ]
+      }
+    ]
+  },
+  "common": []
+}
