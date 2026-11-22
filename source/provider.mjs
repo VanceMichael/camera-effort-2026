@@ -17,6 +17,7 @@ function write(response, status, body, headers = {}) {
 export function provider() {
   let stage = Object.keys(scenarios.stages)[0]
   const arrivals = []
+  const spent = new Map()
   return createServer(async (request, response) => {
     try {
       const url = new URL(request.url, 'http://localhost')
@@ -39,6 +40,14 @@ export function provider() {
         Object.entries(candidate.match || {}).every(([key, value]) => headers[key] === value) &&
         Object.entries(candidate.payload || {}).every(([key, value]) => JSON.stringify(payload?.[key]) === JSON.stringify(value)))
       if (!route) return write(response, 404, { error: '没有相应的资料或操作' })
+      const used = spent.get(stage) || 0
+      if (route.limit !== undefined) {
+        if (used >= route.limit) return write(response, 429, { error: '本档原图领取次数不足' })
+        spent.set(stage, used + 1)
+      }
+      if (route.allowance && route.body) {
+        return write(response, 200, { ...route.body, remaining: Math.max(0, route.body.remaining - used) })
+      }
       if (route.next) stage = route.next
       if (route.drop) return request.socket.destroy()
       if (!route.file) return write(response, route.status || 200, route.body, route.headers)

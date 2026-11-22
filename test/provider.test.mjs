@@ -19,6 +19,8 @@ test('相机略图目录可见但原图失效，岸巡撤回分请求和释放',
   const root = await listen(t)
   assert.equal((await (await fetch(root + '/images/index')).json()).remaining, 1)
   assert.equal((await fetch(root + '/images/a62')).status, 410)
+  assert.equal((await fetch(root + '/images/c62')).status, 429)
+  assert.equal((await (await fetch(root + '/images/index')).json()).remaining, 0)
   await post(root, '/lab?stage=clear')
   const image = Buffer.from(await (await fetch(root + '/images/c62')).arrayBuffer())
   assert.equal(image.subarray(1, 4).toString(), 'PNG')

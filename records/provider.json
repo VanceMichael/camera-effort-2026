@@ -19,14 +19,16 @@
               "path": "/images/c62"
             }
           ]
-        }
+        },
+        "allowance": true
       },
       {
         "path": "/images/a62",
         "body": {
           "error": "已失去原件"
         },
-        "status": 410
+        "status": 410,
+        "limit": 1
       },
       {
         "path": "/crossings/slots",
@@ -42,6 +44,11 @@
             "occupied": "J1"
           }
         ]
+      },
+      {
+        "path": "/images/c62",
+        "file": "c62.png",
+        "limit": 1
       }
     ],
     "clear": [
@@ -57,12 +64,14 @@
               "path": "/images/c62"
             }
           ]
-        }
+        },
+        "allowance": true
       },
       {
         "path": "/images/c62",
         "body": null,
-        "file": "c62.png"
+        "file": "c62.png",
+        "limit": 2
       },
       {
         "path": "/crossings/receipts",
@@ -180,12 +189,14 @@
               "path": "/images/c62"
             }
           ]
-        }
+        },
+        "allowance": true
       },
       {
         "path": "/images/c62",
         "body": null,
-        "file": "c62.png"
+        "file": "c62.png",
+        "limit": 2
       },
       {
         "path": "/crossings/receipts",
